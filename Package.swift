@@ -15,7 +15,7 @@ if #available(iOS 14, *) {
             targets: ["TestingSPM"]),
         .library(
             name: "TestingSPM2",
-            targets: ["TestingSPM"]),
+            targets: ["TestingSPM2"]),
     ]
 } else {
     platforms = [.iOS(.v13)]
@@ -41,6 +41,9 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "TestingSPM",
+            dependencies: []),
+        .target(
+            name: "TestingSPM2",
             dependencies: []),
         .testTarget(
             name: "TestingSPMTests",
