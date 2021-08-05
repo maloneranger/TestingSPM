@@ -3,10 +3,12 @@
 
 import PackageDescription
 
-let package = Package(
-    name: "TestingSPM",
-    platforms: [.iOS(.v13)],
-    products: [
+let platforms: [SupportedPlatform]
+let products: [Product]
+
+if #available(iOS 14, *) {
+    platforms = [.iOS(.v14)]
+    products = [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "TestingSPM",
@@ -14,7 +16,22 @@ let package = Package(
         .library(
             name: "TestingSPM2",
             targets: ["TestingSPM"]),
-    ],
+    ]
+} else {
+    platforms = [.iOS(.v13)]
+    products = [
+        // Products define the executables and libraries a package produces, and make them visible to other packages.
+        .library(
+            name: "TestingSPM",
+            targets: ["TestingSPM"])
+    ]
+}
+
+
+let package = Package(
+    name: "TestingSPM",
+    platforms: platforms,
+    products: products,
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
