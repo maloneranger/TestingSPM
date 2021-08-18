@@ -3,38 +3,23 @@
 
 import PackageDescription
 
-let platforms: [SupportedPlatform]
-let products: [Product]
-
-if #available(iOS 14, *) {
-    platforms = [.iOS(.v14)]
-    products = [
+let package = Package(
+    name: "TestingSPM",
+    platforms: [.iOS(.v13)],
+    products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "TestingSPM",
             targets: ["TestingSPM"]),
         .library(
             name: "TestingSPM2",
-            targets: ["TestingSPM2"]),
-    ]
-} else {
-    platforms = [.iOS(.v13)]
-    products = [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .library(
-            name: "TestingSPM",
-            targets: ["TestingSPM"])
-    ]
-}
-
-
-let package = Package(
-    name: "TestingSPM",
-    platforms: platforms,
-    products: products,
+            targets: ["TestingSPM2"])
+        ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
+        .package(
+            url: "https://github.com/ReactiveX/RxSwift",
+            .exact("5.1.0")
+        ),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -44,7 +29,7 @@ let package = Package(
             dependencies: []),
         .target(
             name: "TestingSPM2",
-            dependencies: []),
+            dependencies: ["RxSwift"]),
         .testTarget(
             name: "TestingSPMTests",
             dependencies: ["TestingSPM"]),
